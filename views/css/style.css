@@ -1,0 +1,29 @@
+.main-color{
+    color: #4B6A2B;
+}
+
+.main-color_background{
+    background-color: #4B6A2B;
+}
+
+.icono-grande {
+    font-size: 4rem;
+}
+
+.turn-green:hover{
+    color: white;
+    background-color: #4B6A2B;
+    border-color: #4B6A2B;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;;
+}
+
+.input-down_line{
+    border: none;
+    border-bottom: 2px solid darkgray;
+    outline: none;
+    padding-bottom: .25rem;
+    width: 35%;
+    font-weight: 500;
+    font-size: 18px;
+}

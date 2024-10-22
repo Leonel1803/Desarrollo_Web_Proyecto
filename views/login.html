@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <title>NotasAPP | Login</title>
+    </head>
+    <body>
+        <div class="m-4 p-4">
+            <h5 class="main-color mb-4 pb-4">Inicia Sesión o Registrate</h5>
+            <section class="mx-2 my-4 py-4">
+                <h1>NotasAPP</h1>
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col card mx-2 turn-green" data-bs-toggle="modal" data-bs-target="#sign-in">
+                        <div class="card-body d-flex">
+                            <i class="bi bi-person icono-grande mx-3"></i>
+                            <div class="mx-2 d-flex align-items-center">
+                                <h5 class="card-title">Inicio Sesión</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col card mx-2 turn-green" data-bs-toggle="modal" data-bs-target="#sign-up">
+                        <div class="card-body d-flex">
+                            <i class="bi bi-person-add icono-grande mx-3"></i>
+                            <div class="mx-2 d-flex align-items-center">
+                                <h5 class="card-title">Registrarse</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col card mx-2 turn-green" data-bs-toggle="modal" data-bs-target="#sign-in_admin">
+                        <div class="card-body d-flex">
+                            <i class="bi bi-person-vcard icono-grande mx-3"></i>
+                            <div class="mx-2 d-flex align-items-center">
+                                <h5 class="card-title">Administrador</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center my-4 py-4">
+                    <h5 class="main-color">Seleccione una opción</h5>
+                </div>
+            </section>
+
+            <!-- Iniciar Sesion -->
+            <div class="modal fade" id="sign-in" tabindex="-1" role="dialog" aria-labelledby="sign-in" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between align-items-center">
+                            <h5 class="modal-title">Iniciar Sesión</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon-session-1"><i class="bi bi-person-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon-session-1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon-session-2"><i class="bi bi-key-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon2-session-">
+                            </div>
+                            <hr class="my-4">
+                            <div class="d-flex justify-content-center">
+                                <button type="button" data-bs-dismiss="modal" class="btn w-75 m-auto turn-green" style="border-color: darkgrey;" id="sign-in-button">Ingresar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registrarse -->
+            <div class="modal fade" id="sign-up" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between align-items-center">
+                            <h5 class="modal-title">Registrarse</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon-register-1"><i class="bi bi-envelope-at-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Correo Electrónico" aria-label="Correo Electrónico" aria-describedby="basic-addon-register-2">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon-register-2"><i class="bi bi-person-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Nombre de Usuario" aria-label="Nombre de Usuario" aria-describedby="basic-addon-register-2">
+                            </div>
+                            <br class="my-2">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon-register-3"><i class="bi bi-key-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon-register-3">
+                            </div>
+                            <hr class="my-4">
+                            <div class="d-flex justify-content-center">
+                                <button type="button" data-bs-dismiss="modal" class="btn w-75 m-auto turn-green" style="border-color: darkgrey;">Registrar Usuario</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Administrador -->
+            <div class="modal fade" id="sign-in_admin" tabindex="-1" role="dialog" aria-labelledby="sign-in_admin" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between align-items-center">
+                            <h5 class="modal-title">Registrarse</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon-admin-1"><i class="bi bi-envelope-check-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Correo Institucional" aria-label="Correo Institucional" aria-describedby="basic-addon-register-2">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon-admin-2"><i class="bi bi-person-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Numero de Empleado" aria-label="Numero de Empleado" aria-describedby="basic-addon-register-2">
+                            </div>
+                            <br class="my-2">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon-admin-3"><i class="bi bi-key-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon-register-3">
+                            </div>
+                            <hr class="my-4">
+                            <div class="d-flex justify-content-center">
+                                <button type="button" data-bs-dismiss="modal" class="btn w-75 m-auto turn-green" style="border-color: darkgrey;">Ingresar como Admin.</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="./js/login.js"></script>
+    </body>
+</html>
