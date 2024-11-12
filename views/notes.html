@@ -22,11 +22,49 @@
                 <h1>Mis Notas</h1>
                 <hr class="my-4">
                 <div id="categories" class="mx-3">
-
                 </div>
             </section>
         </div>
 
+        <!--Modal info note-->
+        <div class="modal fade" id="new-note" tabindex="-1" role="dialog" aria-labelledby="new-note" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-between align-items-center">
+                        <h5 class="modal-title">Nueva Nota</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="deleteActualInfo()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="new-note-input" class="form-label">Nueva Nota</label>
+                            <input type="text" class="form-control" id="new-note-input" placeholder="Escribe el nombre de tu nota">
+                        </div>
+                        <div class="mb-3">
+                            <label for="note-description-input" class="form-label">Descpricion de la Nota</label>
+                            <textarea class="form-control" id="note-description-input" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="note-portrait" class="form-label">Arrastra la Portada de la Nota</label>
+                            <div class="d-flex justify-content-between" style="height: 140px;" id="note-portrait">
+                                <div id="dropArea" class="drop-area rounded-3 d-flex justify-content-center align-items-center">
+                                    <i class="bi bi-card-image"></i>
+                                </div>
+                                <div id="preview" class="preview rounded-3">
+    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="confirm-new-note" data-bs-dismiss="modal" onclick="createNote()">Crear</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteActualInfo()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="./js/notes.js"></script>
+        <script src="./js/image_util.js"></script>
     </body>
 </html>
