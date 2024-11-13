@@ -73,7 +73,7 @@ const getActualCategory = (event) => {
 
 const noteToHTML = (note) => {
     return `
-        <div class="card turn-green me-3" style="width: 18rem;">
+        <div id="note-${note.title}" class="card turn-green me-3" style="width: 18rem;" onclick="redirectNotebook(event)">
             <img src=${note.imageURL} class="card-img-top">
             <div class="card-body">
                 <h5 class="card-title">${note.title}</h5>
@@ -100,7 +100,7 @@ const createNote = () => {
     const actualCategory = document.getElementById(actualCategoryEdit);
     const firstChild = actualCategory.children[1];
 
-    baseElement.insertBefore(newNoteElement.firstChild, firstChild);
+    actualCategory.insertBefore(newNoteElement.firstChild, firstChild);
 
     deleteActualInfo();
 }
@@ -109,4 +109,8 @@ const deleteActualInfo = () => {
     newNoteTitle.value = '';
     newNoteDescription.value = '';
     newNotePortrait.innerHTML = '';
+}
+
+const redirectNotebook = (event) => {
+    window.location.href = `/notebook/${event.currentTarget.id}`
 }

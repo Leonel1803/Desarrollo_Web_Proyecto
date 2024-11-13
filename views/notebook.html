@@ -6,25 +6,39 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="css/style.css">
-        <title>NotasAPP | Login</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <title>NotasAPP | Notebook</title>
     </head>
     <body>
-        <div>
-            <!-- Barra de herramientas -->
-            <button onclick="execCmd('bold')">Negrita</button>
-            <button onclick="execCmd('italic')">Cursiva</button>
-            <button onclick="execCmd('underline')">Subrayado</button>
-            <button onclick="changeFontSize()">Tamaño de fuente</button>
-            <button onclick="changeFontColor()">Color de fuente</button>
+        <div style="height: 100vh; width: 100vw; background-color: #c5f796;" class="d-flex justify-content-center align-items-center">
+            <div class="m-2" style="width: 90%; height: 85%; background-color: #ffffff;">
+                <div class="m-3" style="height: 100%;">
+                    <div class="d-flex justify-content-between" style="max-width: 30%;">
+                        <!-- Barra de herramientas -->
+                        <button class="button-control_deactivated" onclick="execCmd('bold', event)"><i class="bi bi-type-bold"></i></button>
+                        <button class="button-control_deactivated" onclick="execCmd('italic', event)"><i class="bi bi-type-italic"></i></button>
+                        <button class="button-control_deactivated" onclick="execCmd('underline', event)"><i class="bi bi-type-underline"></i></button>
+                        <span class="d-flex justify-content-center align-items-center mx-3">
+                            <span class="turn-green rounded-circle me-1" onclick="changeFontSizeButton(-1)"><i class="bi bi-dash-circle-dotted"></i></span>
+                            <input type="number" id="inputFontSize" class="form-control form-control-sm" aria-describedby="inputFontSize">
+                            <span class="turn-green rounded-circle ms-1" onclick="changeFontSizeButton(1)"><i class="bi bi-plus-circle-dotted"></i></span>
+                        </span>
+                        <button class="button-control_deactivated turn-green" onclick="changeFontColor()">Color de fuente</button>
+                    </div>
+            
+                    <!-- Área editable -->
+                    <div id="editor" contenteditable="true" class="border border-1 p-2 my-2" style="height: 70%; width: 100%;">
+                        
+                    </div>
+            
+                    <!-- Botón para guardar -->
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-success main-color-background" onclick="saveNote()">Guardar Nota</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Área editable -->
-        <div id="editor" contenteditable="true" style="border: 1px solid #ddd; padding: 10px; min-height: 100px;">
-            Escribe tu nota aquí...
-        </div>
-
-        <!-- Botón para guardar -->
-        <button onclick="saveNote()">Guardar Nota</button>
+        <script src="/js/notebook.js"></script>
     </body>
 </html>

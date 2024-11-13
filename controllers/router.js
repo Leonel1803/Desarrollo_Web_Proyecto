@@ -22,6 +22,11 @@ router.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'notes.html'));
 });
 
+router.get('/notebook/:id', (req, res) => {
+    const notebookId = req.params.id;
+    res.sendFile(path.join(__dirname, '..', 'views', 'notebook.html'));
+});
+
 module.exports = router;
 
 //Middleware para que funcione
