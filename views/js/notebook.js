@@ -1,4 +1,10 @@
 const fontSizeInput = document.getElementById('inputFontSize');
+const colorPicker = document.getElementById('colorPicker');
+
+colorPicker.addEventListener('input', (event) => {
+  const selectedColor = event.target.value;
+  changeFontColor(selectedColor);
+});
 
 const execCmd = (command, event) => {
     document.execCommand(command, false, null);
@@ -16,8 +22,7 @@ const changeFontSizeButton = (sizePlus) => {
     document.execCommand("fontSize", false, size);
 }
 
-const changeFontColor = () => {
-    const color = prompt("Ingresa el color de la fuente (por ejemplo, #FF5733):");
+const changeFontColor = (color) => {
     document.execCommand("foreColor", false, color);
 }
 
@@ -36,4 +41,5 @@ const toggleButtonColor = (event) => {
     button.classList.toggle("button-control_activated");
 }
 
-fontSizeInput.value = 5;
+fontSizeInput.value = 3;
+document.execCommand("fontSize", false, 3);

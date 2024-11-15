@@ -81,3 +81,15 @@
     width: 4rem;
     text-align: center;
 }
+
+#editor{
+    height: 70%; 
+    width: 100%;
+    overflow: auto;
+    word-wrap: break-word;
+}
+
+.btn-outline-success{
+    border-color: #4B6A2B; 
+    color: #4B6A2B;
+}
