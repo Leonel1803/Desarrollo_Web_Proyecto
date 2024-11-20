@@ -3,12 +3,15 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path'); 
+const userRouter = require('./user');
 // const productRouter = require('../routes/products');
 // const adminRouter = require('../routes/admin_products')
 
 //Asigna rutas base a cada route
 // router.use('/products', productRouter);
 // router.use('/admin/products', validateAdmin, adminRouter); //Tiene validador
+
+router.use('/api/usuarios', userRouter);
 
 router.get('/', (req, res) => {
     res.redirect('/login');
