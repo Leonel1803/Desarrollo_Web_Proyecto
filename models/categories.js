@@ -9,6 +9,10 @@ const categorieSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    date: {
+        type: Date,
+        default: Date.now
+    },
     categoryName: {
         type: String,
         required: true,

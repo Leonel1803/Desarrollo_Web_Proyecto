@@ -8,6 +8,7 @@ const port = 3000;
 const mongoose = require('mongoose');
 
 const mongoDB = 'mongodb://localhost:27017/NoteAPP';
+process.env.TOKEN_KEY = "NotiAPP01516"
 
 mongoose.connect(mongoDB)
     .then(() => console.log('MongoDB connected'))
