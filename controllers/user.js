@@ -10,6 +10,9 @@ router.route('/')
     .post((req, res) => userHandler.createUser(req, res))
     .get(utils.verifyToken, (req, res) => userHandler.getUsers(req, res));
 
+router.route('/:usrName')
+    .get(utils.verifyToken, (req, res) => userHandler.getUser(req, res));
+
 router.route('/login')
     .post((req, res) => userHandler.login(req, res))
 

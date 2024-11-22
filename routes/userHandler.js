@@ -3,6 +3,7 @@
 const User = require('../models/users')
 const utils = require('../controllers/utils');
 
+//Mandar todos los usuarios
 async function getUsers(req, res) {
     try {
         const users = await User.find();
@@ -20,6 +21,27 @@ async function getUsers(req, res) {
     }
 }
 
+//Buscar usuario por nombre
+async function getUser(req, res) {
+    try {
+        const userName = new RegExp(req.params.usrName, 'i');
+
+        const users = await User.find({ userName: userName });
+
+        return res.status(200).json({
+            success: true,
+            data: users,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error interno del servidor.',
+            error: error.message,
+        });
+    }
+}
+
+//Crear nuevo usuario
 async function createUser(req, res) {
     try {
         let newUserVerify = req.body;
@@ -57,10 +79,11 @@ async function login(req, res) {
     try {
         const userName = req.body.userName;
         const password = req.body.password;
+        const role = req.body.role;
 
         User.findOne({userName: `${userName}`})
         .then(user => {
-            let token = user.generateToken(password);
+            let token = user.generateToken(password, role);
             console.log(token)
             if (token != undefined) {
                 res.status(200)
@@ -89,5 +112,6 @@ async function login(req, res) {
 }
 
 exports.getUsers = getUsers;
+exports.getUser = getUser;
 exports.createUser = createUser;
 exports.login = login;

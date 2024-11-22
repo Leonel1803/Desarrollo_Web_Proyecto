@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-let privateKey = process.env.TOKEN_KEY;
+const privateKey = process.env.TOKEN_KEY;
+const privateKeyAdmin = process.env.SECOND_TOKEN_KEY;
 
 const userSchema = mongoose.Schema({
     uuidUser: {
@@ -21,10 +22,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    employeeNumber: {
-        type: Number,
-        required: false
-    },
     role: {
         type: String,
         enum: ['ADMIN', 'USER'],
@@ -38,14 +35,20 @@ userSchema.pre('save', function(next) {
     next();
 })
 
-userSchema.methods.generateToken = function(password) {
+userSchema.methods.generateToken = function(password, role) {
     let user = this;
     let payload = {_id: user.uuidUser, role: user.role};
     let options = { expiresIn: 60 * 60 }
     if (bcrypt.compareSync(password, user.password)) {
         try {
-            user.token = jwt.sign(payload, privateKey, options);
-            return user.token;
+            if(role == 'ADMIN'){
+                user.token = jwt.sign(payload, privateKeyAdmin, options);
+                return user.token;
+            }
+            else{
+                user.token = jwt.sign(payload, privateKey, options);
+                return user.token;
+            }
         } catch (err) {
             console.log(err);
         }
