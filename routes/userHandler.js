@@ -1,6 +1,8 @@
 "use strict";
 
 const User = require('../models/users')
+const Categorie = require('../models/categories');
+const Note = require('../models/notes');
 const utils = require('../controllers/utils');
 
 //Mandar todos los usuarios
@@ -75,6 +77,84 @@ async function createUser(req, res) {
     }
 }
 
+//Actualizar usuario
+async function updateUser(req, res) {
+    try {
+        const newUserName = req.body.userName;
+        const userUUID = req.params.uuid;
+
+        const existingUser = await User.findOne({ 
+            uuidUser: userUUID
+        });
+
+        if (!existingUser) {
+            return res.status(404).json({
+                success: false,
+                message: 'No hay un usuario registrado con el ID proporcionado',
+            });
+        }
+
+        existingUser.userName = newUserName;
+
+        const user = await existingUser.save();
+        return res.status(200).json({
+            success: true,
+            message: `¡El usuario ha cambiado su nombre a ${user.userName}!`,
+            data: user
+        });
+    } catch (error) {
+        console.error('Error al actualizar el usuario:', error);
+
+        return res.status(500).json({
+            success: false,
+            message: 'Error interno del servidor.',
+            error: error.message,
+        });
+    }
+}
+
+//Eliminar usuario
+async function deleteUser(req, res) {
+    try {
+        const userUUID = req.params.uuid;
+
+        const existingUser = await User.findOne({ 
+            uuidUser: userUUID
+        });
+
+        if (!existingUser) {
+            return res.status(404).json({
+                success: false,
+                message: 'No hay un usuario registrado con el ID proporcionado',
+            });
+        }
+
+        const userCategories = await Categorie.find({ 
+            uuidUserPropietary: userUUID
+        });
+
+        await userCategories.forEach(category => {
+            Note.deleteMany({ uuidCategoryPropietary: category.uuidCategory });
+        });
+
+        await Categorie.deleteMany({ uuidUserPropietary: userUUID });
+        await User.deleteOne({ uuidUser: userUUID });
+
+        return res.status(200).json({
+            success: true,
+            message: `¡El usuario con el ID '${userUUID}' fue eliminado exitosamente!`,
+        });
+    } catch (error) {
+        console.error('Error al eliminar al usuario:', error);
+
+        return res.status(500).json({
+            success: false,
+            message: 'Error interno del servidor.',
+            error: error.message,
+        });
+    }
+}
+
 async function login(req, res) {
     try {
         const userName = req.body.userName;
@@ -114,4 +194,6 @@ async function login(req, res) {
 exports.getUsers = getUsers;
 exports.getUser = getUser;
 exports.createUser = createUser;
+exports.updateUser = updateUser;
+exports.deleteUser = deleteUser;
 exports.login = login;

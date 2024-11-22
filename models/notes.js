@@ -19,7 +19,7 @@ const noteSchema = mongoose.Schema({
     },
     noteContent: {
         type: String,
-        required: true,
+        required: false,
     },
     portraitNoteImage: {
         type: String,

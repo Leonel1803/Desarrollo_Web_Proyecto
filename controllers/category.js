@@ -13,6 +13,10 @@ router.route('/:catName')
     .get((req, res) => categoryHandler.getCategory(req, res))
 
 router.route('/:uuid')
-    .put((req, res) => userHandler.getUser(req, res));
+    .put((req, res) => categoryHandler.updateCategory(req, res))
+    .delete((req, res) => categoryHandler.deleteCategory(req, res))
+
+router.route('/getByUUID/:uuid')
+    .get((req, res) => categoryHandler.getCategoriesByUserUUID(req, res));
 
 module.exports = router;

@@ -1,6 +1,7 @@
 "use strict";
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = require('./controllers/router');
 const path = require("path")
 const app = express();
@@ -13,9 +14,10 @@ process.env.TOKEN_KEY = "NotiAPP01516"
 process.env.SECOND_TOKEN_KEY = "AdminNotiAPP01516_SUPER";
 
 mongoose.connect(mongoDB)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.json());
 app.use(router);
 

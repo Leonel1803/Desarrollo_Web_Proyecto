@@ -13,6 +13,10 @@ router.route('/')
 router.route('/:usrName')
     .get(utils.verifyToken, (req, res) => userHandler.getUser(req, res));
 
+router.route('/:uuid')
+    .put((req, res) => userHandler.updateUser(req, res))
+    .delete((req, res) => userHandler.deleteUser(req, res))
+
 router.route('/login')
     .post((req, res) => userHandler.login(req, res))
 
