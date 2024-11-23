@@ -167,8 +167,7 @@ async function login(req, res) {
             console.log(token)
             if (token != undefined) {
                 res.status(200)
-                res.set('Content-Type', 'text/plain; charset=utf-8');
-                res.send(token);
+                res.send({...user, token});
             } else {
                 res.status(404);            
                 res.set('Content-Type', 'text/plain; charset=utf-8');

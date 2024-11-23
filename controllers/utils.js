@@ -1,6 +1,7 @@
 "use strict";
 
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 const privateKey = process.env.TOKEN_KEY;
 const privateKeyAdmin = process.env.SECOND_TOKEN_KEY;
@@ -15,7 +16,7 @@ function generateUUID() {
 
 const verifyToken = (req, res, next) => {
     const token = req.get("x-auth");
-    const role = req.get("x-auth-role");
+    const role = req.get("x-role");
     if (token == undefined) {
         return res.status(403).send("Missing token");
     }

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const privateKey = process.env.TOKEN_KEY;
 const privateKeyAdmin = process.env.SECOND_TOKEN_KEY;
@@ -13,6 +14,10 @@ const userSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    email: {
+        type: String,
+        required: false,
     },
     userName: {
         type: String,
@@ -39,6 +44,7 @@ userSchema.methods.generateToken = function(password, role) {
     let user = this;
     let payload = {_id: user.uuidUser, role: user.role};
     let options = { expiresIn: 60 * 60 }
+
     if (bcrypt.compareSync(password, user.password)) {
         try {
             if(role == 'ADMIN'){
