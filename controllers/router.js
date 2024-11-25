@@ -26,11 +26,11 @@ router.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'login.html'));
 });
 
-router.get('/notes', utils.verifyToken, (req, res) => {
+router.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'notes.html'));
 });
 
-router.get('/notebook/:uuid', utils.verifyToken, (req, res) => {
+router.get('/notebook/:uuid', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'notebook.html'));
 });
 

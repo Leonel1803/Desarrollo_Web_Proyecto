@@ -15,7 +15,6 @@ const newUser = () => {
     registerUser(
         user, 
         (res) => {
-            console.log(res);
             showSuccessModal(res.message)
         },
         (err) => {
@@ -39,10 +38,11 @@ const login = (admin) => {
     loginRequest(
         user, 
         (res) => {
-            console.log(res);
             sessionStorage.setItem('userData', res);
             closeModal();
-            redirectNotes(res);
+            console.log(res);
+            console.log(sessionStorage.getItem('userData'));
+            window.location.href = '/notes';
         },
         (err) => {
             showErrorModal(err); 

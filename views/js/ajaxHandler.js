@@ -2,19 +2,6 @@
 
 const URL = 'http://localhost:3000/api'
 
-function redirectNotes(res){
-    fetch('/notes', {
-        method: 'GET',
-        headers: {
-            'x-auth': `${res.token}`,
-            'x-role': `${res.role}`
-        }
-    })
-    .then(() => {
-        window.location.href = '/notes';
-    })
-}
-
 async function loadProducts(){
     let response = await fetch(URLUser)
     if (response.status != 200) return [];
