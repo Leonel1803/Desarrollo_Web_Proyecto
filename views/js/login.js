@@ -26,8 +26,16 @@ const newUser = () => {
 const login = (admin) => {
     showLoadingModal();
 
-    const userName = document.getElementById('sign-in_userName').value;
-    const password = document.getElementById('sign-in_password').value;
+    let userName, password;
+
+    if(!admin){
+        userName = document.getElementById('sign-in_userName').value;
+        password = document.getElementById('sign-in_password').value;
+    }
+    else{
+        userName = document.getElementById('sign-in_userName_admin').value;
+        password = document.getElementById('sign-in_password_admin').value; 
+    }
 
     const user = {
         userName: userName,
@@ -38,11 +46,11 @@ const login = (admin) => {
     loginRequest(
         user, 
         (res) => {
-            sessionStorage.setItem('userData', res);
+            setUserSessionStorage(res);
             closeModal();
             console.log(res);
-            console.log(sessionStorage.getItem('userData'));
-            window.location.href = '/notes';
+            console.log(getUserSessionStorage());
+            admin ? window.location.href = '/admin' : window.location.href = '/notes';
         },
         (err) => {
             showErrorModal(err); 

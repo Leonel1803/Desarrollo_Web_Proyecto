@@ -39,6 +39,10 @@ router.get('/notebook/:uuid', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'notebook.html'));
 });
 
+router.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'views', 'admin.html'));
+});
+
 router.post('/api/updateNote', (req, res) => {
     const { fileName, newContent } = req.body;
     const filePath = path.join(__dirname, '..', 'uploads', fileName);
