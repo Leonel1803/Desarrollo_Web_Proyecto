@@ -23,7 +23,7 @@
                             <button type="button" class="btn turn-green main-color-border dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
-                            <button type="button" class="btn turn-green main-color-border"><i class="bi bi-search"></i></button>
+                            <button type="button" class="btn turn-green main-color-border" onclick="searchInfo()"><i class="bi bi-search"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" onclick="showInfo(searchCriteria.userName[0])">Usuario</a></li>
                                 <li><a class="dropdown-item" onclick="showInfo(searchCriteria.category[0])">Categoría</a></li>
@@ -33,7 +33,7 @@
                     </div>  
                 </div>        
                 <div class="col-2 p-2">
-                    <a class="btn turn-green" style="border-color: darkgrey;">Mis Notas</a>
+                    <a class="btn turn-green" style="border-color: darkgrey;" onclick="redirectNotes()">Mis Notas</a>
                 </div>
             </div>
             <section class="mx-2 my-4 py-4 w-100" id="infoTables">

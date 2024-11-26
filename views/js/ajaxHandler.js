@@ -53,6 +53,20 @@ async function loadUsers(onSuccess, onError){
     xhr.send();
 }
 
+async function loadUsersByName(userName ,onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    console.log(userData);
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', `${URL}/usuarios/${userName}`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+
 async function deleteUser(userUUID, onSuccess, onError){
     const userData = JSON.parse(getUserSessionStorage());
 
@@ -79,6 +93,20 @@ async function loadCategories(onSuccess, onError){
     xhr.send();
 }
 
+async function loadCategoriesByName(categoryName, onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    console.log(userData);
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', `${URL}/categorias/${categoryName}`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+
 async function deleteCategory(categoryUUID, onSuccess, onError){
     const userData = JSON.parse(getUserSessionStorage());
 
@@ -99,6 +127,20 @@ async function loadNotes(onSuccess, onError){
     let xhr = new XMLHttpRequest();
     
     xhr.open('GET', `${URL}/notas`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+
+async function loadNotesByName(noteName, onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    console.log(userData);
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', `${URL}/notas/${noteName}`);
     xhr.setRequestHeader('x-auth', userData.token);
     xhr.setRequestHeader('x-role', 'ADMIN');
     xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
