@@ -41,7 +41,7 @@ async function getNote(req, res) {
     }
 }
 
-//Buscar notas por nombre
+//Buscar notas por UUID de su catalogo contenedor
 async function getNotesByCatalogUUID(req, res) {
     try {
         const noteUUID = req.params.uuid;

@@ -8,6 +8,19 @@ async function loadProducts(){
     return await response.json();
 }
 
+function getUserSessionStorage(){
+    return sessionStorage.getItem('userData')
+}
+
+function setUserSessionStorage(data){
+    const verifiedUser = {
+        token: data.token,
+        userName: data.userName,
+    }
+
+    sessionStorage.setItem('userData', JSON.stringify(verifiedUser))
+}
+
 async function registerUser(user, onSuccess, onError){
     let xhr = new XMLHttpRequest();
     
@@ -24,6 +37,84 @@ async function loginRequest(user, onSuccess, onError){
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(user));
     xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+}
+
+async function loadUsers(onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    console.log(userData);
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', `${URL}/usuarios`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+
+async function deleteUser(userUUID, onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('DELETE', `${URL}/usuarios/${userUUID}`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+
+async function loadCategories(onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    console.log(userData);
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', `${URL}/categorias`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+
+async function deleteCategory(categoryUUID, onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('DELETE', `${URL}/categorias/${categoryUUID}`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+
+async function loadNotes(onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    console.log(userData);
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', `${URL}/notas`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+
+async function deleteNote(noteUUID, onSuccess, onError){
+    const userData = JSON.parse(getUserSessionStorage());
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('DELETE', `${URL}/notas/${noteUUID}`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
 }
 
 function getXhrResponse(xhr, onSuccess, onError) {

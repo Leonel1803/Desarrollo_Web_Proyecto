@@ -114,21 +114,17 @@
                         </div>
                         <div class="modal-body">
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon-admin-1"><i class="bi bi-envelope-check-fill"></i></span>
-                                <input type="text" class="form-control" placeholder="Correo Institucional" aria-label="Correo Institucional" aria-describedby="basic-addon-register-2">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon-admin-2"><i class="bi bi-person-fill"></i></span>
-                                <input type="text" class="form-control" placeholder="Numero de Empleado" aria-label="Numero de Empleado" aria-describedby="basic-addon-register-2">
+                                <span class="input-group-text" id="basic-addon-register-4"><i class="bi bi-person-fill"></i></span>
+                                <input id="sign-in_userName_admin" type="text" class="form-control" placeholder="Nombre de Usuario" aria-label="Nombre de Usuario" aria-describedby="basic-addon-register-2" required>
                             </div>
                             <br class="my-2">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon-admin-3"><i class="bi bi-key-fill"></i></span>
-                                <input type="text" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon-register-3">
+                                <input id="sign-in_password_admin" type="text" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon-register-3">
                             </div>
                             <hr class="my-4">
                             <div class="d-flex justify-content-center">
-                                <button type="button" data-bs-dismiss="modal" class="btn w-75 m-auto turn-green" style="border-color: darkgrey;">Ingresar como Admin.</button>
+                                <button type="button" data-bs-dismiss="modal" class="btn w-75 m-auto turn-green" style="border-color: darkgrey;" onclick="login(true)">Ingresar como Admin.</button>
                             </div>
                         </div>
                     </div>
@@ -136,8 +132,8 @@
             </div>
         </div>
 
-        <script src="/js/login.js"></script>
         <script src="/js/ajaxHandler.js"></script>
         <script src="/js/sweetAlertHandler.js"></script>
+        <script src="/js/login.js"></script>
     </body>
 </html>
