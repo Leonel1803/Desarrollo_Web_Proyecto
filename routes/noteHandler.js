@@ -1,4 +1,3 @@
-// routes/noteHandler.js
 "use strict";
 
 const Note = require('../models/notes');

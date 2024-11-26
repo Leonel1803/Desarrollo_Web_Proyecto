@@ -1,4 +1,3 @@
-// views/js/image_util.js
 //Subida de portada
 const dropArea = document.getElementById('dropArea');
 const preview = document.getElementById('preview');

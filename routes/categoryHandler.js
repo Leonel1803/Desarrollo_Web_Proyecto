@@ -1,4 +1,3 @@
-// routes/categoryHandler.js
 "use strict";
 
 const Categorie = require('../models/categories');

@@ -1,15 +1,21 @@
-// controllers/router.js
-"use strict";
+"use strict"
 
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const fs = require('fs');
+const path = require('path'); 
 const userRouter = require('./user');
 const categoryRouter = require('./category');
 const noteRouter = require('./note');
 const utils = require('./utils');
+const fs = require('fs');
 const saveNote = require('./saveNote');
+
+// const productRouter = require('../routes/products');
+// const adminRouter = require('../routes/admin_products')
+
+//Asigna rutas base a cada route
+// router.use('/products', productRouter);
+// router.use('/admin/products', validateAdmin, adminRouter); //Tiene validador
 
 router.post('/api/saveNote', saveNote);
 
@@ -25,16 +31,15 @@ router.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'login.html'));
 });
 
-router.get('/notes', utils.verifyToken, (req, res) => {
+router.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'notes.html'));
 });
 
-router.get('/notebook/:uuid', utils.verifyToken, (req, res) => {
+router.get('/notebook/:uuid', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'notebook.html'));
 });
 
-
-router.post('/api/updateNote', utils.verifyToken, (req, res) => {
+router.post('/api/updateNote', (req, res) => {
     const { fileName, newContent } = req.body;
     const filePath = path.join(__dirname, '..', 'uploads', fileName);
 
@@ -47,7 +52,7 @@ router.post('/api/updateNote', utils.verifyToken, (req, res) => {
     });
 });
 
-router.get('/profile', utils.verifyToken, (req, res) => {
+router.get('/profile', (req, res) => {
     const uploadsDir = path.join(__dirname, '..', 'uploads');
 
     fs.readdir(uploadsDir, (err, files) => {
@@ -102,8 +107,7 @@ router.get('/profile', utils.verifyToken, (req, res) => {
                                 fetch('/api/updateNote', {
                                     method: 'POST',
                                     headers: {
-                                        'Content-Type': 'application/json',
-                                        'x-auth': sessionStorage.getItem('token')
+                                        'Content-Type': 'application/json'
                                     },
                                     body: JSON.stringify({ fileName, newContent })
                                 })
@@ -131,6 +135,6 @@ router.get('/profile', utils.verifyToken, (req, res) => {
     });
 });
 
-
-
 module.exports = router;
+
+//Middleware para que funcione
