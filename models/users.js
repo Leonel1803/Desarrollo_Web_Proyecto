@@ -1,23 +1,12 @@
+// models/users.js
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const path = require('path');
 require('dotenv').config();
 
-const filePath = path.join(__dirname, '../configuration.json');
-
-let keys = {};
-
-(async function loadKeys() {
-    try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        keys = JSON.parse(data);
-    } catch (err) {
-        console.error('Error al cargar las claves:', err);
-        process.exit(1);
-    }
-})();
+const privateKey = process.env.TOKEN_KEY;
+const privateKeyAdmin = process.env.SECOND_TOKEN_KEY;
 
 const userSchema = mongoose.Schema({
     uuidUser: {
@@ -61,11 +50,11 @@ userSchema.methods.generateToken = function(password, role) {
     if (bcrypt.compareSync(password, user.password)) {
         try {
             if(role == 'ADMIN'){
-                user.token = jwt.sign(payload, keys.AdminKEY, options);
+                user.token = jwt.sign(payload, privateKeyAdmin, options);
                 return user.token;
             }
             else{
-                user.token = jwt.sign(payload, keys.UserKEY, options);
+                user.token = jwt.sign(payload, privateKey, options);
                 return user.token;
             }
         } catch (err) {

@@ -1,3 +1,4 @@
+// views/js/sweetAlertHandler.js
 "use strict"
 
 const closeModal = () => {

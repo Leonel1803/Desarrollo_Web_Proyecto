@@ -1,24 +1,11 @@
+// controllers/utils.js
 "use strict";
 
 const jwt = require("jsonwebtoken");
-const fs = require('fs');
-const path = require('path');
 require('dotenv').config();
 
-const filePath = path.join(__dirname, '../configuration.json');
-
-let keys = {};
-
-(async function loadKeys() {
-    try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        keys = JSON.parse(data);
-    } catch (err) {
-        console.error('Error al cargar las claves:', err);
-        process.exit(1);
-    }
-})();
-
+const privateKey = process.env.TOKEN_KEY;
+const privateKeyAdmin = process.env.SECOND_TOKEN_KEY;
 
 function generateUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
@@ -28,9 +15,14 @@ function generateUUID() {
     });
 }
 
-function verifyToken (req, res, next){
+/*
+const verifyToken = (req, res, next) => {
     const token = req.get("x-auth");
     const role = req.get("x-role");
+
+    console.log("Token recibido:", token);
+    console.log("Role recibido:", role);
+    
     if (token == undefined) {
         return res.status(403).send("Missing token");
     }
@@ -38,7 +30,7 @@ function verifyToken (req, res, next){
     if(token == "TestToken") return next(); //Borrar al subir a PRODUCCIÓN
 
     if(role == 'ADMIN'){
-        jwt.verify(token, keys.AdminKEY, (err, decoded) => {
+        jwt.verify(token, privateKeyAdmin, (err, decoded) => {
             if (err) return res.status(401).send("Invalid Token");
     
             req.userInfo = decoded;
@@ -46,14 +38,21 @@ function verifyToken (req, res, next){
         });
     }
     else{
-        jwt.verify(token, keys.UserKEY, (err, decoded) => {
+        jwt.verify(token, privateKey, (err, decoded) => {
             if (err) return res.status(401).send("Invalid Token");
     
             req.userInfo = decoded;
             return next();
         });
     }
+};*/
+const verifyToken = (req, res, next) => {
+    // Deshabilitado: Permite que todos pasen sin verificar el token
+    console.log("Middleware de verificación deshabilitado. Permitiendo el acceso a todos.");
+    return next();
 };
+
+
 
 exports.verifyToken = verifyToken;
 exports.generateUUID = generateUUID;

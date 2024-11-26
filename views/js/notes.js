@@ -1,3 +1,4 @@
+// views/js/notes.js
 const newNoteTitle = document.getElementById('new-note-input');
 const newNoteDescription = document.getElementById('note-description-input');
 const newNotePortrait = document.getElementById('preview');

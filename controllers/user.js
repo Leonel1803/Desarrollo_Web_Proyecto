@@ -1,3 +1,4 @@
+// controllers/user.js
 "use strict";
 
 const express = require('express');

@@ -1,3 +1,4 @@
+// views/js/login.js
 const newUser = () => {
     showLoadingModal();
 
@@ -15,6 +16,7 @@ const newUser = () => {
     registerUser(
         user, 
         (res) => {
+            console.log(res);
             showSuccessModal(res.message)
         },
         (err) => {
@@ -38,11 +40,10 @@ const login = (admin) => {
     loginRequest(
         user, 
         (res) => {
+            console.log(res);
             sessionStorage.setItem('userData', res);
             closeModal();
-            console.log(res);
-            console.log(sessionStorage.getItem('userData'));
-            window.location.href = '/notes';
+            redirectNotes(res);
         },
         (err) => {
             showErrorModal(err); 

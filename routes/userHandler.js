@@ -1,3 +1,4 @@
+// routes/userHandler.js
 "use strict";
 
 const User = require('../models/users')
@@ -164,9 +165,10 @@ async function login(req, res) {
         User.findOne({userName: `${userName}`})
         .then(user => {
             let token = user.generateToken(password, role);
+            console.log("Token:", token)
             if (token != undefined) {
                 res.status(200)
-                res.send({...user._doc, token});
+                res.send({...user, token});
             } else {
                 res.status(404);            
                 res.set('Content-Type', 'text/plain; charset=utf-8');
