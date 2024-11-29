@@ -41,7 +41,13 @@ const saveNote = async (req, res) => {
     }
 
     // Guardar en archivo
-    const filePath = path.join(__dirname, '..', 'uploads', `${title}.txt`);
+    const uploadsDir = path.join(__dirname, '..', 'uploads');
+    const filePath = path.join(uploadsDir, `${title}.txt`);
+
+    // Crear el directorio 'uploads' si no existe
+    if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir);
+    }
 
     fs.writeFile(filePath, content, (err) => {
         if (err) {

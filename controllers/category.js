@@ -1,3 +1,4 @@
+// controllers/category.js
 "use strict";
 
 const express = require('express');

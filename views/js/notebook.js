@@ -1,3 +1,4 @@
+// views/js/notebook.js
 const fontSizeInput = document.getElementById('inputFontSize');
 const colorPicker = document.getElementById('colorPicker');
 
@@ -28,10 +29,27 @@ const changeFontColor = (color) => {
 
 const saveNote = () => {
     const noteContent = document.getElementById("editor").innerHTML;
-    
-    // Aquí debes hacer una llamada a tu backend para guardar `noteContent` en la base de datos
-    console.log("Contenido guardado:", noteContent);
-    alert("Nota guardada con éxito");
+    const noteTitle = window.location.pathname.split('/').pop(); // Obtener el nombre de la nota desde la URL
+
+    fetch('/api/saveNote', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: noteTitle, content: noteContent })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Nota guardada con éxito");
+        } else {
+            alert("Error al guardar la nota: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error al guardar la nota:', error);
+        alert("Error al guardar la nota");
+    });
 }
 
 const toggleButtonColor = (event) => {
