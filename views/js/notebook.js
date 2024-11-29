@@ -9,7 +9,6 @@ colorPicker.addEventListener('input', (event) => {
 
 const execCmd = (command, event) => {
     document.execCommand(command, false, null);
-
     toggleButtonColor(event);
 }
 
@@ -31,17 +30,28 @@ const saveNote = () => {
     const noteContent = document.getElementById("editor").innerHTML;
     const noteTitle = window.location.pathname.split('/').pop(); // Obtener el nombre de la nota desde la URL
 
+    // Obtener el token de sessionStorage
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const token = userData ? userData.token : null;
+    const userName = userData ? userData.userName : 'desconocido';
+
+    if (!token) {
+        alert("Usuario no autenticado. Por favor, inicia sesión.");
+        return;
+    }
+
     fetch('/api/saveNote', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Incluir el token en los encabezados
         },
         body: JSON.stringify({ title: noteTitle, content: noteContent })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert("Nota guardada con éxito");
+            alert(`Nota guardada con éxito para el usuario "${userName}"`);
         } else {
             alert("Error al guardar la nota: " + data.message);
         }
@@ -54,7 +64,6 @@ const saveNote = () => {
 
 const toggleButtonColor = (event) => {
     const button = event.currentTarget;
-
     button.classList.toggle("button-control_deactivated");
     button.classList.toggle("button-control_activated");
 }
