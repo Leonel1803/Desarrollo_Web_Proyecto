@@ -1,3 +1,4 @@
+// controllers/router.js
 "use strict"
 
 const express = require('express');
@@ -9,13 +10,6 @@ const noteRouter = require('./note');
 const utils = require('./utils');
 const fs = require('fs');
 const saveNote = require('./saveNote');
-
-// const productRouter = require('../routes/products');
-// const adminRouter = require('../routes/admin_products')
-
-//Asigna rutas base a cada route
-// router.use('/products', productRouter);
-// router.use('/admin/products', validateAdmin, adminRouter); //Tiene validador
 
 router.post('/api/saveNote', saveNote);
 
@@ -36,7 +30,133 @@ router.get('/notes', (req, res) => {
 });
 
 router.get('/notebook/:uuid', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'views', 'notebook.html'));
+    const noteName = req.params.uuid;
+    const filePath = path.join(__dirname, '..', 'uploads', `${noteName}.txt`);
+
+    fs.readFile(filePath, 'utf8', (err, content) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                fs.writeFile(filePath, '', (writeErr) => {
+                    if (writeErr) {
+                        console.error('Error al crear el archivo:', writeErr);
+                        return res.status(500).send('Error interno del servidor al crear la nota');
+                    }
+
+                    res.send(`
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+                            <link rel="stylesheet" href="../css/style.css">
+                            <title>NotasAPP | Notebook</title>
+                        </head>
+                        <body>
+                            <div style="height: 100vh; width: 100vw; background-color: #c5f796;">
+                                <button class="btn btn btn-outline-success turn-green rounded-4 m-2"><i class="bi bi-house-door-fill"></i></button>
+                                <div style="height: 90%; width: 100%;" class="d-flex justify-content-center align-items-center">
+                                    <div class="m-2" style="width: 90%; height: 90.5%; background-color: #ffffff;">
+                                        <div class="m-3" style="height: 100%;">
+                                            <div class="d-flex justify-content-between" style="max-width: 30%;">
+                                                <!-- Barra de herramientas -->
+                                                <button class="button-control_deactivated" onclick="execCmd('bold', event)"><i class="bi bi-type-bold"></i></button>
+                                                <button class="button-control_deactivated" onclick="execCmd('italic', event)"><i class="bi bi-type-italic"></i></button>
+                                                <button class="button-control_deactivated" onclick="execCmd('underline', event)"><i class="bi bi-type-underline"></i></button>
+                                                <span class="d-flex justify-content-center align-items-center mx-3">
+                                                    <span class="turn-green rounded-circle me-1" onclick="changeFontSizeButton(-1)"><i class="bi bi-dash-circle-dotted"></i></span>
+                                                    <input type="number" id="inputFontSize" class="form-control form-control-sm" aria-describedby="inputFontSize">
+                                                    <span class="turn-green rounded-circle ms-1" onclick="changeFontSizeButton(1)"><i class="bi bi-plus-circle-dotted"></i></span>
+                                                </span>
+                                                <input class="turn-green" type="color" id="colorPicker">
+                                                <!-- <button class="button-control_deactivated turn-green" onclick="changeFontColor()">Color de fuente</button> -->
+                                            </div>
+                                    
+                                            <!-- Área editable -->
+                                            <div id="editor" contenteditable="true" class="border border-1 p-2 my-2">
+                                                
+                                            </div>
+                                    
+                                            <!-- Botón para guardar -->
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-success main-color-background" onclick="saveNote()">Guardar Nota</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script src="/js/ajaxHandler.js"></script>
+                            <script src="/js/sweetAlertHandler.js"></script>
+                            <script src="/js/notebook.js"></script>
+                        </body>
+                        </html>
+                    `);
+                });
+            } else {
+                console.error('Error al leer el archivo:', err);
+                return res.status(500).send('Error interno del servidor al leer la nota');
+            }
+        } else {
+            // Enviar el contenido del archivo al cliente
+            res.send(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+                    <link rel="stylesheet" href="../css/style.css">
+                    <title>NotasAPP | Notebook</title>
+                </head>
+                <body>
+                    <div style="height: 100vh; width: 100vw; background-color: #c5f796;">
+                        <button class="btn btn btn-outline-success turn-green rounded-4 m-2"><i class="bi bi-house-door-fill"></i></button>
+                        <div style="height: 90%; width: 100%;" class="d-flex justify-content-center align-items-center">
+                            <div class="m-2" style="width: 90%; height: 90.5%; background-color: #ffffff;">
+                                <div class="m-3" style="height: 100%;">
+                                    <div class="d-flex justify-content-between" style="max-width: 30%;">
+                                        <!-- Barra de herramientas -->
+                                        <button class="button-control_deactivated" onclick="execCmd('bold', event)"><i class="bi bi-type-bold"></i></button>
+                                        <button class="button-control_deactivated" onclick="execCmd('italic', event)"><i class="bi bi-type-italic"></i></button>
+                                        <button class="button-control_deactivated" onclick="execCmd('underline', event)"><i class="bi bi-type-underline"></i></button>
+                                        <span class="d-flex justify-content-center align-items-center mx-3">
+                                            <span class="turn-green rounded-circle me-1" onclick="changeFontSizeButton(-1)"><i class="bi bi-dash-circle-dotted"></i></span>
+                                            <input type="number" id="inputFontSize" class="form-control form-control-sm" aria-describedby="inputFontSize">
+                                            <span class="turn-green rounded-circle ms-1" onclick="changeFontSizeButton(1)"><i class="bi bi-plus-circle-dotted"></i></span>
+                                        </span>
+                                        <input class="turn-green" type="color" id="colorPicker">
+                                        <!-- <button class="button-control_deactivated turn-green" onclick="changeFontColor()">Color de fuente</button> -->
+                                    </div>
+                            
+                                    <!-- Área editable -->
+                                    <div id="editor" contenteditable="true" class="border border-1 p-2 my-2">
+                                        ${content}
+                                    </div>
+                            
+                                    <!-- Botón para guardar -->
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-success main-color-background" onclick="saveNote()">Guardar Nota</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script src="/js/ajaxHandler.js"></script>
+                    <script src="/js/sweetAlertHandler.js"></script>
+                    <script src="/js/notebook.js"></script>
+                </body>
+                </html>
+            `);
+        }
+    });
 });
 
 router.get('/admin', (req, res) => {
@@ -140,5 +260,3 @@ router.get('/profile', (req, res) => {
 });
 
 module.exports = router;
-
-//Middleware para que funcione

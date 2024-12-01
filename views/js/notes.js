@@ -1,3 +1,4 @@
+// views/js/notes.js
 const newNoteTitle = document.getElementById('new-note-input');
 const newNoteDescription = document.getElementById('note-description-input');
 const newNotePortrait = document.getElementById('preview');
@@ -114,3 +115,33 @@ const deleteActualInfo = () => {
 const redirectNotebook = (event) => {
     window.location.href = `/notebook/${event.currentTarget.id}`
 }
+
+const renderNotes = (notes) => {
+    const categoriesDiv = document.getElementById('categories');
+    categoriesDiv.innerHTML = ''; // Limpiar contenido previo
+
+    notes.forEach(note => {
+        const noteElement = document.createElement('div');
+        noteElement.className = 'card turn-green me-3';
+        noteElement.style.width = '18rem';
+        noteElement.innerHTML = `
+            <img src="${note.portraitNoteImage || './assets/default-note.png'}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">${note.noteName}</h5>
+                <p class="card-text">${note.noteContent}</p>
+            </div>
+        `;
+        categoriesDiv.appendChild(noteElement);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadNotes(
+        (res) => {
+            renderNotes(res.data);
+        },
+        (err) => {
+            console.error('Error al cargar las notas:', err);
+        }
+    );
+});

@@ -119,6 +119,7 @@ async function deleteCategory(categoryUUID, onSuccess, onError){
     xhr.send();
 }
 
+/*
 async function loadNotes(onSuccess, onError){
     const userData = JSON.parse(getUserSessionStorage());
 
@@ -126,6 +127,17 @@ async function loadNotes(onSuccess, onError){
 
     let xhr = new XMLHttpRequest();
     
+    xhr.open('GET', `${URL}/notas`);
+    xhr.setRequestHeader('x-auth', userData.token);
+    xhr.setRequestHeader('x-role', 'ADMIN');
+    xhr.onload = () => getXhrResponse(xhr, onSuccess, onError);
+    xhr.send();
+}
+*/
+async function loadNotes(onSuccess, onError) {
+    const userData = JSON.parse(getUserSessionStorage());
+
+    let xhr = new XMLHttpRequest();
     xhr.open('GET', `${URL}/notas`);
     xhr.setRequestHeader('x-auth', userData.token);
     xhr.setRequestHeader('x-role', 'ADMIN');
